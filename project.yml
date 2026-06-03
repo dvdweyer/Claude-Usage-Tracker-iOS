@@ -12,6 +12,7 @@ settings:
     TARGETED_DEVICE_FAMILY: "1,2"
     ENABLE_BITCODE: "NO"
     CODE_SIGN_IDENTITY: "Apple Development"
+    DEVELOPMENT_TEAM: R4J8ZNC9HF
 
 schemes:
   ClaudeUsageIOS:

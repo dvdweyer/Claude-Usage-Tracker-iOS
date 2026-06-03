@@ -279,6 +279,12 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					D0581027EDAA327E77BECBEB = {
+						DevelopmentTeam = R4J8ZNC9HF;
+					};
+					E25BC105D0627385A3517F6B = {
+						DevelopmentTeam = R4J8ZNC9HF;
+					};
 				};
 			};
 			buildConfigurationList = 484DE2EFBC15AABA4BF9975E /* Build configuration list for PBXProject "ClaudeUsageIOS" */;
@@ -462,6 +468,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = R4J8ZNC9HF;
 				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -521,6 +528,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = R4J8ZNC9HF;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
