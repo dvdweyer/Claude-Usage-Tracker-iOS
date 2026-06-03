@@ -1,3 +1,6 @@
+# Internal documents
+internal/
+
 # macOS
 .DS_Store
 .DS_Store?
