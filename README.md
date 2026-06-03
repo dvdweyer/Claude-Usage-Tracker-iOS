@@ -103,10 +103,23 @@ Project navigator → `ClaudeUsageIOS.xcodeproj` → each target → Signing & C
 
 ## Getting Your Session Key
 
-1. Open [claude.ai](https://claude.ai) in Safari on your Mac (or in iOS Safari with DevTools via remote inspector)
-2. Open DevTools → Application → Cookies → `claude.ai`
-3. Copy the **value** of the `sessionKey` cookie (starts with `sk-ant-`)
-4. Paste it into the app under Profiles → your profile → Edit → Session Key → Test & Fetch Orgs → Save
+### Safari
+
+Safari's DevTools aren't enabled by default.
+
+1. **Enable the Develop menu**: Safari → Settings → Advanced → tick "Show features for web developers"
+
+2. **Open DevTools**: With claude.ai open in Safari, menu bar → **Develop → Show Web Inspector** (or ⌥⌘I)
+
+3. **Find the cookie**: In the Web Inspector, click the **Storage** tab (top bar) → expand **Cookies** in the left sidebar → click **claude.ai** → find `sessionKey` in the list → copy the value from the right column (starts with `sk-ant-sid01-…`)
+
+### Chrome
+
+**Application** tab → **Cookies** → **https://claude.ai** → copy the `sessionKey` value.
+
+### In the app
+
+Paste the key under **Profiles → your profile → Edit → Session Key → Test & Fetch Orgs → Save**.
 
 The session key is stored exclusively in the iOS Keychain. The org ID is fetched automatically on first use and cached in the profile.
 
