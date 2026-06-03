@@ -11,6 +11,7 @@ settings:
     SWIFT_VERSION: "5.9"
     TARGETED_DEVICE_FAMILY: "1,2"
     ENABLE_BITCODE: "NO"
+    CODE_SIGN_IDENTITY: "Apple Development"
 
 schemes:
   ClaudeUsageIOS:
@@ -48,6 +49,9 @@ targets:
       - ClaudeUsageIOS/Resources/PrivacyInfo.xcprivacy
     info:
       path: ClaudeUsageIOS/Resources/Info.plist
+      properties:
+        CFBundleVersion: "13"
+        CFBundleShortVersionString: "1.0"
     entitlements:
       path: ClaudeUsageIOS/ClaudeUsageIOS.entitlements
     settings:
@@ -55,6 +59,7 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: org.afaik.claudeusagetracker.ios
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_IDENTITY: "Apple Development"
     dependencies:
       - target: ClaudeUsageWidget
         embed: true
@@ -74,6 +79,8 @@ targets:
     info:
       path: ClaudeUsageWidget/Info.plist
       properties:
+        CFBundleVersion: "13"
+        CFBundleShortVersionString: "1.0"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
@@ -82,3 +89,4 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.afaik.claudeusagetracker.ios.widget
         APPLICATION_EXTENSION_API_ONLY: "YES"
+        CODE_SIGN_IDENTITY: "Apple Development"
