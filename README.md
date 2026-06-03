@@ -5,6 +5,7 @@
 
 An iOS companion to [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker), the macOS menu bar app for monitoring your Claude AI usage. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
 
+<!--
 ## Beta Testing (TestFlight)
 
 The app has been submitted to Apple TestFlight. It is not yet publicly available, but you can already register as a tester — your spot is saved and you'll be notified as soon as the build is approved.
@@ -17,6 +18,7 @@ The app has been submitted to Apple TestFlight. It is not yet publicly available
 2. **Join the beta** — Open the link above on your device and tap **Accept** to register.
 3. **Wait for availability** — Once Apple approves the build, TestFlight notifies you and the install button becomes active.
 4. **Install & update** — TestFlight handles installation and keeps the app updated automatically throughout the beta.
+-->
 
 ---
 
