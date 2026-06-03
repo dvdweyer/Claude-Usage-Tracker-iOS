@@ -29,7 +29,7 @@ struct ClaudeUsageProvider: TimelineProvider {
 // MARK: - Minimal local store (reads from App Group UserDefaults)
 
 private struct WidgetDataStore {
-    private let defaults = UserDefaults(suiteName: "group.org.afaik.claudeusagetracker.shared")
+    private let defaults = UserDefaults(suiteName: Constants.appGroupIdentifier)
     private let usageKey = "widget.claudeUsage"
     private let profileNameKey = "widget.profileName"
 

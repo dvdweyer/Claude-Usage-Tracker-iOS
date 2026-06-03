@@ -158,8 +158,6 @@ struct CredentialsView: View {
         let key = sessionKeyInput.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !key.isEmpty else { return }
 
-        try? KeychainService.shared.save(key, for: .claudeSessionKey)
-
         var updated = profile
         updated.claudeSessionKey = key
         updated.organizationId = selectedOrgId

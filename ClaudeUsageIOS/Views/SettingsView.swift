@@ -161,7 +161,7 @@ struct SettingsView: View {
             LabeledContent("App", value: "Claude Usage Tracker")
             LabeledContent("Version", value: Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—")
             LabeledContent("Build", value: Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—")
-            Link(destination: URL(string: "https://github.com/hamed-elfayome/Claude-Usage-Tracker")!) {
+            Link(destination: URL(string: "https://github.com/dvdweyer/Claude-Usage-Tracker-iOS")!) {
                 Label("View on GitHub", systemImage: "safari")
             }
         }

@@ -8,13 +8,9 @@ struct Profile: Codable, Identifiable, Equatable {
     // MARK: - Credentials
     var claudeSessionKey: String?
     var organizationId: String?
-    var apiSessionKey: String?
-    var apiOrganizationId: String?
-    var apiSessionKeyExpiry: Date?
 
     // MARK: - Usage Data
     var claudeUsage: ClaudeUsage?
-    var apiUsage: APIUsage?
 
     // MARK: - Settings
     var refreshInterval: TimeInterval
@@ -29,11 +25,7 @@ struct Profile: Codable, Identifiable, Equatable {
         name: String,
         claudeSessionKey: String? = nil,
         organizationId: String? = nil,
-        apiSessionKey: String? = nil,
-        apiOrganizationId: String? = nil,
-        apiSessionKeyExpiry: Date? = nil,
         claudeUsage: ClaudeUsage? = nil,
-        apiUsage: APIUsage? = nil,
         refreshInterval: TimeInterval = 30.0,
         notificationSettings: NotificationSettings = NotificationSettings(),
         createdAt: Date = Date(),
@@ -43,15 +35,19 @@ struct Profile: Codable, Identifiable, Equatable {
         self.name = name
         self.claudeSessionKey = claudeSessionKey
         self.organizationId = organizationId
-        self.apiSessionKey = apiSessionKey
-        self.apiOrganizationId = apiOrganizationId
-        self.apiSessionKeyExpiry = apiSessionKeyExpiry
         self.claudeUsage = claudeUsage
-        self.apiUsage = apiUsage
         self.refreshInterval = refreshInterval
         self.notificationSettings = notificationSettings
         self.createdAt = createdAt
         self.lastUsedAt = lastUsedAt
+    }
+
+    // MARK: - Persistence
+
+    func strippingCredentials() -> Profile {
+        var copy = self
+        copy.claudeSessionKey = nil
+        return copy
     }
 
     // MARK: - Computed
@@ -60,16 +56,11 @@ struct Profile: Codable, Identifiable, Equatable {
         claudeSessionKey != nil && organizationId != nil
     }
 
-    var hasAPIConsole: Bool {
-        apiSessionKey != nil && apiOrganizationId != nil
-    }
-
-    /// A session key alone is enough — the org ID is auto-fetched on first use.
     var hasUsageCredentials: Bool {
         claudeSessionKey != nil
     }
 
     var hasAnyCredentials: Bool {
-        claudeSessionKey != nil || apiSessionKey != nil
+        claudeSessionKey != nil
     }
 }

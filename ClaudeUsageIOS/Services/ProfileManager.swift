@@ -18,7 +18,17 @@ final class ProfileManager: ObservableObject {
     func loadProfiles() {
         if let data = userDefaults.data(forKey: profilesKey),
            let decoded = try? JSONDecoder().decode([Profile].self, from: data) {
-            profiles = decoded
+            // Hydrate credentials from Keychain. If a profile was saved in the old
+            // format (credentials embedded in UserDefaults), the decoded value acts
+            // as the migration source and will be moved to Keychain on next save.
+            profiles = decoded.map { profile in
+                var hydrated = profile
+                let account = profile.id.uuidString
+                if let key = try? KeychainService.shared.load(for: .claudeSessionKey, account: account) {
+                    hydrated.claudeSessionKey = key
+                }
+                return hydrated
+            }
         }
 
         if profiles.isEmpty {
@@ -56,6 +66,7 @@ final class ProfileManager: ObservableObject {
 
     func deleteProfile(_ profile: Profile) {
         guard profiles.count > 1 else { return }
+        try? KeychainService.shared.delete(for: .claudeSessionKey, account: profile.id.uuidString)
         profiles.removeAll { $0.id == profile.id }
         if activeProfile?.id == profile.id {
             activeProfile = profiles.first
@@ -70,7 +81,15 @@ final class ProfileManager: ObservableObject {
     }
 
     private func saveProfiles() {
-        if let data = try? JSONEncoder().encode(profiles) {
+        for profile in profiles {
+            let account = profile.id.uuidString
+            if let key = profile.claudeSessionKey {
+                try? KeychainService.shared.save(key, for: .claudeSessionKey, account: account)
+            } else {
+                try? KeychainService.shared.delete(for: .claudeSessionKey, account: account)
+            }
+        }
+        if let data = try? JSONEncoder().encode(profiles.map { $0.strippingCredentials() }) {
             userDefaults.set(data, forKey: profilesKey)
         }
         if let active = activeProfile {

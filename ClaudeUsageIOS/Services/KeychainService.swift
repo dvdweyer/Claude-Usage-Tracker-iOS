@@ -7,13 +7,12 @@ final class KeychainService {
 
     enum KeychainKey: String {
         case claudeSessionKey = "org.afaik.claudeusagetracker.ios.claude-session-key"
-        case apiSessionKey = "org.afaik.claudeusagetracker.ios.api-session-key"
 
         var service: String { rawValue }
-        var account: String { "user-credential" }
+        static let defaultAccount = "user-credential"
     }
 
-    func save(_ value: String, for key: KeychainKey) throws {
+    func save(_ value: String, for key: KeychainKey, account: String = KeychainKey.defaultAccount) throws {
         guard let data = value.data(using: .utf8) else {
             throw KeychainError.invalidData
         }
@@ -21,7 +20,7 @@ final class KeychainService {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: key.service,
-            kSecAttrAccount as String: key.account
+            kSecAttrAccount as String: account
         ]
 
         let updateStatus = SecItemUpdate(query as CFDictionary, [kSecValueData as String: data] as CFDictionary)
@@ -32,7 +31,7 @@ final class KeychainService {
             let addQuery: [String: Any] = [
                 kSecClass as String: kSecClassGenericPassword,
                 kSecAttrService as String: key.service,
-                kSecAttrAccount as String: key.account,
+                kSecAttrAccount as String: account,
                 kSecValueData as String: data,
                 kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlockedThisDeviceOnly
             ]
@@ -45,11 +44,11 @@ final class KeychainService {
         }
     }
 
-    func load(for key: KeychainKey) throws -> String? {
+    func load(for key: KeychainKey, account: String = KeychainKey.defaultAccount) throws -> String? {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: key.service,
-            kSecAttrAccount as String: key.account,
+            kSecAttrAccount as String: account,
             kSecReturnData as String: true,
             kSecMatchLimit as String: kSecMatchLimitOne
         ]
@@ -70,11 +69,11 @@ final class KeychainService {
         }
     }
 
-    func delete(for key: KeychainKey) throws {
+    func delete(for key: KeychainKey, account: String = KeychainKey.defaultAccount) throws {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: key.service,
-            kSecAttrAccount as String: key.account
+            kSecAttrAccount as String: account
         ]
         let status = SecItemDelete(query as CFDictionary)
         if status != errSecSuccess && status != errSecItemNotFound {
@@ -82,11 +81,11 @@ final class KeychainService {
         }
     }
 
-    func exists(for key: KeychainKey) -> Bool {
+    func exists(for key: KeychainKey, account: String = KeychainKey.defaultAccount) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrService as String: key.service,
-            kSecAttrAccount as String: key.account,
+            kSecAttrAccount as String: account,
             kSecReturnData as String: false
         ]
         return SecItemCopyMatching(query as CFDictionary, nil) == errSecSuccess

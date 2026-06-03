@@ -144,9 +144,6 @@ struct ProfileDetailView: View {
 
     private func saveProfile() {
         let key = sessionKeyInput.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !key.isEmpty {
-            try? KeychainService.shared.save(key, for: .claudeSessionKey)
-        }
 
         var updated = profile
         updated.name = nameInput.trimmingCharacters(in: .whitespaces)
