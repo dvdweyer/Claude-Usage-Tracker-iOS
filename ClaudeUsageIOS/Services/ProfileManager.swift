@@ -95,7 +95,7 @@ final class ProfileManager: ObservableObject {
                 try? KeychainService.shared.delete(for: .claudeSessionKey, account: account)
             }
         }
-        if let data = try? JSONEncoder().encode(profiles.map { $0.strippingCredentials() }) {
+        if let data = try? JSONEncoder().encode(profiles) {
             userDefaults.set(data, forKey: profilesKey)
         }
         if let active = activeProfile {

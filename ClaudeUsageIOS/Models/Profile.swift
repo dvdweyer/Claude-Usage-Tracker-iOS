@@ -6,6 +6,7 @@ struct Profile: Codable, Identifiable, Equatable {
     var name: String
 
     // MARK: - Credentials
+    // claudeSessionKey is excluded from Codable (see CodingKeys) — Keychain is the sole store.
     var claudeSessionKey: String?
     var organizationId: String?
 
@@ -42,12 +43,25 @@ struct Profile: Codable, Identifiable, Equatable {
         self.lastUsedAt = lastUsedAt
     }
 
-    // MARK: - Persistence
+    // MARK: - Codable — claudeSessionKey excluded; Keychain is sole store
 
-    func strippingCredentials() -> Profile {
-        var copy = self
-        copy.claudeSessionKey = nil
-        return copy
+    private enum CodingKeys: String, CodingKey {
+        case id, name, organizationId, claudeUsage
+        case refreshInterval, notificationSettings
+        case createdAt, lastUsedAt
+    }
+
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id                   = try c.decode(UUID.self,                 forKey: .id)
+        name                 = try c.decode(String.self,               forKey: .name)
+        organizationId       = try c.decodeIfPresent(String.self,      forKey: .organizationId)
+        claudeUsage          = try c.decodeIfPresent(ClaudeUsage.self, forKey: .claudeUsage)
+        refreshInterval      = try c.decode(TimeInterval.self,         forKey: .refreshInterval)
+        notificationSettings = try c.decode(NotificationSettings.self, forKey: .notificationSettings)
+        createdAt            = try c.decode(Date.self,                 forKey: .createdAt)
+        lastUsedAt           = try c.decode(Date.self,                 forKey: .lastUsedAt)
+        claudeSessionKey     = nil  // always hydrated from Keychain by ProfileManager
     }
 
     // MARK: - Computed
