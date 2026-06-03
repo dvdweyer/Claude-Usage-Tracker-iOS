@@ -1,0 +1,63 @@
+name: ClaudeUsageIOS
+options:
+  bundleIdPrefix: com.claudeusagetracker
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "16.0"
+  developmentLanguage: en
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    ENABLE_BITCODE: "NO"
+
+targets:
+
+  ClaudeUsageIOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: ClaudeUsageIOS
+        excludes:
+          - "**/.DS_Store"
+          - "**/Info.plist"
+      - path: Shared
+        excludes:
+          - "**/.DS_Store"
+    resources:
+      - ClaudeUsageIOS/Resources/Assets.xcassets
+    info:
+      path: ClaudeUsageIOS/Resources/Info.plist
+    entitlements:
+      path: ClaudeUsageIOS/ClaudeUsageIOS.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.claudeusagetracker.ios
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+    dependencies:
+      - target: ClaudeUsageWidget
+        embed: true
+
+  ClaudeUsageWidget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: ClaudeUsageWidget
+        excludes:
+          - "**/.DS_Store"
+          - "**/Info.plist"
+      - path: Shared
+        excludes:
+          - "**/.DS_Store"
+    info:
+      path: ClaudeUsageWidget/Info.plist
+    entitlements:
+      path: ClaudeUsageWidget/ClaudeUsageWidget.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.claudeusagetracker.ios.widget
+        APPLICATION_EXTENSION_API_ONLY: "YES"
