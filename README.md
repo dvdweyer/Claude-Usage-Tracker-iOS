@@ -1,6 +1,18 @@
 # Claude Usage Tracker — iOS Companion App
 
+> **⚠️ Proof of Concept — Not production-ready**
+> This app was built as a quick feasibility exercise. The UI has not been properly designed and is visibly rough around the edges. Treat it as a starting point, not a finished product.
+
 An iOS companion to [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker), the macOS menu bar app for monitoring your Claude AI usage. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center"><img src="screenshots/app.png" width="300"/><br/><sub>Usage dashboard</sub></td>
+    <td align="center"><img src="screenshots/widget.png" width="300"/><br/><sub>Medium home screen widget</sub></td>
+  </tr>
+</table>
 
 ## Features
 
