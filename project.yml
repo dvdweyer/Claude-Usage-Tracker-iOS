@@ -52,8 +52,19 @@ targets:
       path: ClaudeUsageIOS/Resources/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "14"
+        CFBundleVersion: "17"
         CFBundleShortVersionString: "1.0"
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UILaunchScreen: {}
     entitlements:
       path: ClaudeUsageIOS/ClaudeUsageIOS.entitlements
       properties:
@@ -85,7 +96,7 @@ targets:
       path: ClaudeUsageWidget/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "14"
+        CFBundleVersion: "17"
         CFBundleShortVersionString: "1.0"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
