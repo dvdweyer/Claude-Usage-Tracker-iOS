@@ -16,8 +16,9 @@ struct ClaudeUsageProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ClaudeUsageEntry>) -> Void) {
         let entry = currentEntry()
-        let refreshDate = Calendar.current.date(byAdding: .minute, value: 15, to: Date()) ?? Date()
-        completion(Timeline(entries: [entry], policy: .after(refreshDate)))
+        let age = Date().timeIntervalSince(entry.date)
+        let interval: TimeInterval = age > 15 ? 15 : Constants.RefreshIntervals.widgetRefresh
+        completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(interval))))
     }
 
     private func currentEntry() -> ClaudeUsageEntry {
@@ -89,9 +90,6 @@ struct SmallWidgetView: View {
                 Image(systemName: "bolt.fill")
                     .font(.caption2.bold())
                     .foregroundStyle(sessionColor)
-                Text(entry.profileName)
-                    .font(.caption2.bold())
-                    .lineLimit(1)
                 Spacer()
             }
 
@@ -143,18 +141,18 @@ struct SmallWidgetView: View {
                 VStack(spacing: 1) {
                     HStack {
                         Text("⚡")
-                            .font(.system(size: 7))
+                            .font(.system(size: 9))
                         Text(entry.sessionResetTime.resetTimeString())
-                            .font(.system(size: 8))
-                            .foregroundStyle(.secondary)
+                            .font(.system(size: 10))
+                            .foregroundStyle(.primary)
                         Spacer()
                     }
                     HStack {
                         Text("📅")
-                            .font(.system(size: 7))
+                            .font(.system(size: 9))
                         Text(entry.weeklyResetTime.resetTimeString())
-                            .font(.system(size: 8))
-                            .foregroundStyle(.secondary)
+                            .font(.system(size: 10))
+                            .foregroundStyle(.primary)
                         Spacer()
                     }
                 }
@@ -206,14 +204,11 @@ struct MediumWidgetView: View {
         .padding(.horizontal, 16)
         .overlay(alignment: .top) {
             HStack {
-                Text(entry.profileName)
-                    .font(.caption2.bold())
-                    .foregroundStyle(.secondary)
                 Spacer()
                 if let updated = entry.hasData ? entry.date : nil {
                     Text(updated, style: .time)
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
                 }
             }
             .padding(.horizontal, 16)
@@ -251,8 +246,8 @@ struct MediumWidgetView: View {
                 .frame(width: 76, height: 76)
 
                 Text("Resets \(resetTime.resetTimeString())")
-                    .font(.caption2)
-                    .foregroundStyle(.secondary)
+                    .font(.caption)
+                    .foregroundStyle(.primary)
                     .lineLimit(1)
             } else {
                 Image(systemName: "minus.circle")
