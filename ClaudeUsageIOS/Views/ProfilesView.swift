@@ -49,18 +49,23 @@ struct ProfilesView: View {
                 addProfileSheet
             }
             .sheet(item: $profileToEdit) { profile in
-                NavigationStack {
-                    ProfileDetailView(profile: profile) { updated in
-                        appState.updateProfile(updated)
-                        profileToEdit = nil
-                    }
-                    .navigationTitle("Edit Profile")
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar {
-                        ToolbarItem(placement: .cancellationAction) {
-                            Button("Cancel") { profileToEdit = nil }
-                        }
-                    }
+                editProfileSheet(profile)
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func editProfileSheet(_ profile: Profile) -> some View {
+        NavigationStack {
+            ProfileDetailView(profile: profile) { updated in
+                appState.updateProfile(updated)
+                profileToEdit = nil
+            }
+            .navigationTitle("Edit Profile")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") { profileToEdit = nil }
                 }
             }
         }
@@ -105,7 +110,7 @@ private struct ProfileRow: View {
         HStack(spacing: 12) {
             ZStack {
                 Circle()
-                    .fill(isActive ? Color.accentColor : Color(.systemGray5))
+                    .fill(isActive ? Color.accentColor : Color(UIColor.systemGray5))
                     .frame(width: 36, height: 36)
                 Text(profile.name.prefix(1).uppercased())
                     .font(.system(size: 16, weight: .semibold))
@@ -122,7 +127,7 @@ private struct ProfileRow: View {
                             .padding(.horizontal, 6)
                             .padding(.vertical, 2)
                             .background(Color.accentColor.opacity(0.15))
-                            .foregroundStyle(.accentColor)
+                            .foregroundStyle(Color.accentColor)
                             .clipShape(Capsule())
                     }
                 }
@@ -146,7 +151,7 @@ private struct ProfileRow: View {
 
             if isActive {
                 Image(systemName: "checkmark")
-                    .foregroundStyle(.accentColor)
+                    .foregroundStyle(Color.accentColor)
                     .font(.body.bold())
             }
         }

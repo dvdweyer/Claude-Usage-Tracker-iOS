@@ -14,7 +14,7 @@ struct CredentialsView: View {
 
     private let validator = SessionKeyValidator()
 
-    private var validationStatus: (isValid: Bool, message: String?) {
+    private var validationStatus: (isValid: Bool, errorMessage: String?) {
         validator.validationStatus(sessionKeyInput.trimmingCharacters(in: .whitespacesAndNewlines))
     }
 
@@ -72,7 +72,7 @@ struct CredentialsView: View {
                             Label("Format looks good", systemImage: "checkmark.circle.fill")
                                 .font(.caption)
                                 .foregroundStyle(.green)
-                        } else if let msg = validationStatus.message {
+                        } else if let msg = validationStatus.errorMessage {
                             Label(msg, systemImage: "xmark.circle.fill")
                                 .font(.caption)
                                 .foregroundStyle(.red)

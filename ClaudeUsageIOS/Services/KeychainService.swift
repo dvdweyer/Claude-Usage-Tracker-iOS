@@ -6,8 +6,8 @@ final class KeychainService {
     private init() {}
 
     enum KeychainKey: String {
-        case claudeSessionKey = "com.claudeusagetracker.ios.claude-session-key"
-        case apiSessionKey = "com.claudeusagetracker.ios.api-session-key"
+        case claudeSessionKey = "org.afaik.claudeusagetracker.ios.claude-session-key"
+        case apiSessionKey = "org.afaik.claudeusagetracker.ios.api-session-key"
 
         var service: String { rawValue }
         var account: String { "user-credential" }

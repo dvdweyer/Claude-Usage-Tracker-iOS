@@ -1,7 +1,7 @@
 import Foundation
 
 enum Constants {
-    static let appGroupIdentifier = "group.com.claudeusagetracker.shared"
+    static let appGroupIdentifier = "group.org.afaik.claudeusagetracker.shared"
 
     static let sessionWindow: TimeInterval = 5 * 60 * 60
     static let weeklyWindow: TimeInterval = 7 * 24 * 60 * 60

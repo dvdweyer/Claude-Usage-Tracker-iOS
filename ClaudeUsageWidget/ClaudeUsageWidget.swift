@@ -29,7 +29,7 @@ struct ClaudeUsageProvider: TimelineProvider {
 // MARK: - Minimal local store (reads from App Group UserDefaults)
 
 private struct WidgetDataStore {
-    private let defaults = UserDefaults(suiteName: "group.com.claudeusagetracker.shared")
+    private let defaults = UserDefaults(suiteName: "group.org.afaik.claudeusagetracker.shared")
     private let usageKey = "widget.claudeUsage"
     private let profileNameKey = "widget.profileName"
 
@@ -138,6 +138,26 @@ struct SmallWidgetView: View {
                     }
                     .frame(height: 4)
                 }
+
+                // Reset times
+                VStack(spacing: 1) {
+                    HStack {
+                        Text("⚡")
+                            .font(.system(size: 7))
+                        Text(entry.sessionResetTime.resetTimeString())
+                            .font(.system(size: 8))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                    }
+                    HStack {
+                        Text("📅")
+                            .font(.system(size: 7))
+                        Text(entry.weeklyResetTime.resetTimeString())
+                            .font(.system(size: 8))
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                    }
+                }
             } else {
                 VStack(spacing: 4) {
                     Image(systemName: "exclamationmark.circle")
@@ -230,9 +250,10 @@ struct MediumWidgetView: View {
                 }
                 .frame(width: 76, height: 76)
 
-                Text(resetTime.timeRemainingString())
-                    .font(.caption2.monospacedDigit())
+                Text("Resets \(resetTime.resetTimeString())")
+                    .font(.caption2)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
             } else {
                 Image(systemName: "minus.circle")
                     .foregroundStyle(.secondary)
