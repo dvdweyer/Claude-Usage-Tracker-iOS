@@ -24,6 +24,7 @@
 		492E8445D882BAEBBE2BE225 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85B1BEF47377F2A01F4A8D3C /* ProfileManager.swift */; };
 		4E4250705CCDEBA7D90A42B6 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E056EA068BC6EFEEAE1DE7B /* Profile.swift */; };
 		51C23E6EB7F2BB1D7BCA1504 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49A67002EEC64302F6574DD /* ProfileDetailView.swift */; };
+		54F6F1F3F97B5256231F7A86 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 356DFE66893D8D2BCB6D8986 /* LaunchScreen.storyboard */; };
 		60E86DBBB851300442EF68FB /* ClaudeUsageWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5BF5C85A6C2D0509A9A4A30A /* ClaudeUsageWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		651CFA5D10069B23674E59B0 /* ClaudeUsageWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57F42D3BF90F6F5873471A7 /* ClaudeUsageWidgetBundle.swift */; };
 		65EAAF8BF95077C856F4E9E5 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40CE8535FE8FBD52CE59BE20 /* AppState.swift */; };
@@ -77,6 +78,7 @@
 		1C5A2E4FA30DB35523888FA4 /* ClaudeUsageWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageWidget.swift; sourceTree = "<group>"; };
 		278F4DE0F18B47DA93065743 /* ClaudeUsageWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageWidget.entitlements; sourceTree = "<group>"; };
 		27C0050938F5EE7F73912549 /* APIUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUsage.swift; sourceTree = "<group>"; };
+		356DFE66893D8D2BCB6D8986 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40CE8535FE8FBD52CE59BE20 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5BF5C85A6C2D0509A9A4A30A /* ClaudeUsageWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ClaudeUsageWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		64C33E6FB8ACC271E9FF9A48 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				DBC9D7090E4AFB96DD092802 /* Assets.xcassets */,
+				356DFE66893D8D2BCB6D8986 /* LaunchScreen.storyboard */,
 				9D36297ACD999CD9972672F0 /* PrivacyInfo.xcprivacy */,
 			);
 			path = Resources;
@@ -313,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				48668ACDC3166511418E6F36 /* Assets.xcassets in Resources */,
+				54F6F1F3F97B5256231F7A86 /* LaunchScreen.storyboard in Resources */,
 				BC2BCE5B7A95FF9029A4AA99 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,9 +387,6 @@
 				CODE_SIGN_ENTITLEMENTS = ClaudeUsageIOS/ClaudeUsageIOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				INFOPLIST_FILE = ClaudeUsageIOS/Resources/Info.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -406,9 +407,6 @@
 				CODE_SIGN_ENTITLEMENTS = ClaudeUsageIOS/ClaudeUsageIOS.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				INFOPLIST_FILE = ClaudeUsageIOS/Resources/Info.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

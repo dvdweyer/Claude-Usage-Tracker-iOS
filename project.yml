@@ -48,11 +48,12 @@ targets:
     resources:
       - ClaudeUsageIOS/Resources/Assets.xcassets
       - ClaudeUsageIOS/Resources/PrivacyInfo.xcprivacy
+      - ClaudeUsageIOS/Resources/LaunchScreen.storyboard
     info:
       path: ClaudeUsageIOS/Resources/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "24"
+        CFBundleVersion: "25"
         CFBundleShortVersionString: "1.0"
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -64,8 +65,7 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
-        UILaunchScreen: {}
-        UIRequiresFullScreen: true
+        UILaunchStoryboardName: LaunchScreen
     entitlements:
       path: ClaudeUsageIOS/ClaudeUsageIOS.entitlements
       properties:
@@ -78,9 +78,6 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_IDENTITY: "Apple Development"
-        INFOPLIST_KEY_UILaunchScreen_Generation: "YES"
-        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
-        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
     dependencies:
       - target: ClaudeUsageWidget
         embed: true
@@ -101,7 +98,7 @@ targets:
       path: ClaudeUsageWidget/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "24"
+        CFBundleVersion: "25"
         CFBundleShortVersionString: "1.0"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
