@@ -1,6 +1,6 @@
 # Claude Usage Tracker — iOS Companion App
 
-An iOS companion to the macOS Claude Usage Tracker menu bar app. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
+An iOS companion to [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker), the macOS menu bar app for monitoring your Claude AI usage. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
 
 ## Features
 
@@ -26,7 +26,7 @@ An iOS companion to the macOS Claude Usage Tracker menu bar app. Shows session a
 ### Prerequisites
 
 - Xcode 16 or later
-- iOS 16.0+ deployment target
+- iOS 17.0+ deployment target
 - An Apple Developer account (free tier works for device testing)
 - [xcodegen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
 
@@ -50,14 +50,14 @@ If you prefer to set up manually:
 
 1. **Create a new iOS App project** in Xcode  
    - Product Name: `ClaudeUsageIOS`  
-   - Bundle ID: `com.claudeusagetracker.ios`  
+   - Bundle ID: `org.afaik.claudeusagetracker.ios`  
    - Interface: SwiftUI  
    - Language: Swift
 
 2. **Add a Widget Extension target**  
    File → New → Target → Widget Extension  
    - Product Name: `ClaudeUsageWidget`  
-   - Bundle ID: `com.claudeusagetracker.ios.widget`  
+   - Bundle ID: `org.afaik.claudeusagetracker.ios.widget`  
    - Uncheck "Include Configuration App Intent"
 
 3. **Add source files to each target**
@@ -70,12 +70,12 @@ If you prefer to set up manually:
 
 4. **Configure App Groups** (required for widget data sharing)  
    - Select the `ClaudeUsageIOS` target → Signing & Capabilities → + Capability → App Groups  
-   - Add: `group.com.claudeusagetracker.shared`  
+   - Add: `group.org.afaik.claudeusagetracker.shared`  
    - Repeat for the `ClaudeUsageWidget` target
 
 5. **Set Keychain Sharing** (optional, recommended)  
    - `ClaudeUsageIOS` target → + Capability → Keychain Sharing  
-   - Add: `com.claudeusagetracker.ios`
+   - Add: `org.afaik.claudeusagetracker.ios`
 
 6. **Link WidgetKit** to the main app target (for `WidgetCenter.shared.reloadAllTimelines()`)  
    - `ClaudeUsageIOS` target → Build Phases → Link Binary With Libraries → `WidgetKit.framework`
@@ -164,8 +164,14 @@ Widget Provider.getTimeline()
 
 | Target | Bundle ID |
 |--------|-----------|
-| Main app | `com.claudeusagetracker.ios` |
-| Widget | `com.claudeusagetracker.ios.widget` |
-| App Group | `group.com.claudeusagetracker.shared` |
+| Main app | `org.afaik.claudeusagetracker.ios` |
+| Widget | `org.afaik.claudeusagetracker.ios.widget` |
+| App Group | `group.org.afaik.claudeusagetracker.shared` |
 
-To use a custom bundle ID prefix, replace `com.claudeusagetracker` everywhere in `project.yml`, the entitlements files, and `AppGroupStore.swift` / `WidgetDataStore` (in `ClaudeUsageWidget.swift`).
+To use a different bundle ID prefix, replace `org.afaik.claudeusagetracker` in `project.pbxproj`, both `.entitlements` files, `Constants.swift`, and the `WidgetDataStore` suite name in `ClaudeUsageWidget.swift`.
+
+---
+
+## License
+
+[MIT](LICENSE)
