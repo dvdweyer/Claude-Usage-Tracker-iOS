@@ -1,3 +1,5 @@
+> **Note:** This is Claude Code's own review of the differences. Some of the features it has marked as Status 'Complete' I haven't found in the iOS app. Take this with a big pinch of salt. I'll look into it when I feel like it.
+
 # Claude Usage Tracker — macOS → iOS Gap Analysis
 _Generated 2026-06-03_
 
