@@ -16,9 +16,8 @@ struct ClaudeUsageProvider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ClaudeUsageEntry>) -> Void) {
         let entry = currentEntry()
-        let age = Date().timeIntervalSince(entry.date)
-        let interval: TimeInterval = age > 15 ? 15 : Constants.RefreshIntervals.widgetRefresh
-        completion(Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(interval))))
+        let refreshDate = Date().addingTimeInterval(Constants.RefreshIntervals.widgetRefresh)
+        completion(Timeline(entries: [entry], policy: .after(refreshDate)))
     }
 
     private func currentEntry() -> ClaudeUsageEntry {
