@@ -12,6 +12,7 @@ struct ContentView: View {
                 onboardingView
             }
         }
+        .background(Color(.systemBackground))
         .sheet(isPresented: $showOnboarding) {
             onboardingSheet
         }

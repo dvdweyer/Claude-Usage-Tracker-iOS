@@ -16,6 +16,7 @@ final class AppState: ObservableObject {
         syncFromManager()
         if activeProfile?.hasUsageCredentials == true {
             scheduleRefresh()
+            Task { await refresh() }
         }
         NetworkMonitor.shared.startMonitoring()
         NetworkMonitor.shared.onNetworkAvailable = { [weak self] in

@@ -32,7 +32,13 @@ final class ProfileManager: ObservableObject {
         }
 
         if profiles.isEmpty {
-            let defaultProfile = Profile(name: "Personal")
+            var defaultProfile = Profile(name: "Personal")
+            // Re-install migration: UserDefaults is gone but Keychain persists.
+            // Recover the session key from the previous install's profile UUID.
+            if let oldId = try? KeychainService.shared.load(for: .lastProfileId),
+               let key  = try? KeychainService.shared.load(for: .claudeSessionKey, account: oldId) {
+                defaultProfile.claudeSessionKey = key
+            }
             profiles = [defaultProfile]
             saveProfiles()
         }
@@ -94,6 +100,7 @@ final class ProfileManager: ObservableObject {
         }
         if let active = activeProfile {
             userDefaults.set(active.id.uuidString, forKey: activeProfileIdKey)
+            try? KeychainService.shared.save(active.id.uuidString, for: .lastProfileId)
         }
     }
 }

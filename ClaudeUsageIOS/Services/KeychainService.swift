@@ -7,6 +7,7 @@ final class KeychainService {
 
     enum KeychainKey: String {
         case claudeSessionKey = "org.afaik.claudeusagetracker.ios.claude-session-key"
+        case lastProfileId    = "org.afaik.claudeusagetracker.ios.last-profile-id"
 
         var service: String { rawValue }
         static let defaultAccount = "user-credential"
