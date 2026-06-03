@@ -73,6 +73,9 @@ targets:
           - "**/.DS_Store"
     info:
       path: ClaudeUsageWidget/Info.plist
+      properties:
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
       path: ClaudeUsageWidget/ClaudeUsageWidget.entitlements
     settings:
