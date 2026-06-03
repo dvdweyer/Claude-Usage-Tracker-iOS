@@ -50,10 +50,14 @@ targets:
     info:
       path: ClaudeUsageIOS/Resources/Info.plist
       properties:
-        CFBundleVersion: "13"
+        CFBundleDisplayName: "Claude Usage"
+        CFBundleVersion: "14"
         CFBundleShortVersionString: "1.0"
     entitlements:
       path: ClaudeUsageIOS/ClaudeUsageIOS.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.org.afaik.claudeusagetracker.shared
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.afaik.claudeusagetracker.ios
@@ -79,12 +83,16 @@ targets:
     info:
       path: ClaudeUsageWidget/Info.plist
       properties:
-        CFBundleVersion: "13"
+        CFBundleDisplayName: "Claude Usage"
+        CFBundleVersion: "14"
         CFBundleShortVersionString: "1.0"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     entitlements:
       path: ClaudeUsageWidget/ClaudeUsageWidget.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.org.afaik.claudeusagetracker.shared
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: org.afaik.claudeusagetracker.ios.widget

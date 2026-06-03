@@ -6,7 +6,7 @@ struct ContentView: View {
 
     var body: some View {
         Group {
-            if appState.activeProfile?.hasUsageCredentials == true || appState.profiles.isEmpty == false {
+            if appState.activeProfile?.hasUsageCredentials == true {
                 mainTabView
             } else {
                 onboardingView
@@ -14,11 +14,6 @@ struct ContentView: View {
         }
         .sheet(isPresented: $showOnboarding) {
             onboardingSheet
-        }
-        .onAppear {
-            if appState.activeProfile?.hasUsageCredentials == false {
-                showOnboarding = true
-            }
         }
     }
 
