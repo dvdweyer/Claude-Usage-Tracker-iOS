@@ -22,8 +22,9 @@ The beta is live. Install TestFlight, open the link below on your device, and ta
 
 <table>
   <tr>
-    <td align="center"><img src="screenshots/app.png" width="300"/><br/><sub>Usage dashboard</sub></td>
-    <td align="center"><img src="screenshots/widget.png" width="300"/><br/><sub>Medium home screen widget</sub></td>
+    <td align="center"><img src="screenshots/App.PNG" width="300"/><br/><sub>Usage dashboard</sub></td>
+    <td align="center"><img src="screenshots/Widget.PNG" width="300"/><br/><sub>Medium home screen widget</sub></td>
+    <td align="center"><img src="screenshots/Settings.PNG" width="300"/><br/><sub>Settings</sub></td>
   </tr>
 </table>
 
