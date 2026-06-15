@@ -54,6 +54,7 @@ final class AppState: ObservableObject {
             if let sessionKey = updatedProfile.claudeSessionKey {
                 AppGroupStore.shared.writeCredentials(sessionKey: sessionKey, orgId: result.orgId)
             }
+            NotificationService.shared.handleUsageUpdate(result.usage, settings: updatedProfile.notificationSettings)
         } catch let error as AppError {
             lastError = error
         } catch {

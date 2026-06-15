@@ -8,6 +8,7 @@ struct NotificationSettings: Codable, Equatable {
     var threshold95Enabled: Bool
     var soundName: String
     var customThresholds: [Int]
+    var resetNotificationEnabled: Bool
 
     var sortedThresholds: [Int] {
         var thresholds: [Int] = []
@@ -32,7 +33,8 @@ struct NotificationSettings: Codable, Equatable {
         threshold90Enabled: Bool = true,
         threshold95Enabled: Bool = true,
         soundName: String = "default",
-        customThresholds: [Int] = []
+        customThresholds: [Int] = [],
+        resetNotificationEnabled: Bool = true
     ) {
         self.enabled = enabled
         self.threshold75Enabled = threshold75Enabled
@@ -40,6 +42,7 @@ struct NotificationSettings: Codable, Equatable {
         self.threshold95Enabled = threshold95Enabled
         self.soundName = soundName
         self.customThresholds = customThresholds
+        self.resetNotificationEnabled = resetNotificationEnabled
     }
 
     init(from decoder: Decoder) throws {
@@ -50,5 +53,6 @@ struct NotificationSettings: Codable, Equatable {
         threshold95Enabled = try container.decode(Bool.self, forKey: .threshold95Enabled)
         soundName = try container.decodeIfPresent(String.self, forKey: .soundName) ?? "default"
         customThresholds = try container.decodeIfPresent([Int].self, forKey: .customThresholds) ?? []
+        resetNotificationEnabled = try container.decodeIfPresent(Bool.self, forKey: .resetNotificationEnabled) ?? true
     }
 }

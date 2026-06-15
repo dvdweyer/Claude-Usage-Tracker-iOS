@@ -131,6 +131,13 @@ struct SettingsView: View {
     private var notificationThresholdsView: some View {
         Group {
             if var profile = appState.activeProfile {
+                Toggle("Notify on reset", isOn: Binding(
+                    get: { profile.notificationSettings.resetNotificationEnabled },
+                    set: { val in
+                        profile.notificationSettings.resetNotificationEnabled = val
+                        appState.updateProfile(profile)
+                    }
+                ))
                 Toggle("Alert at 75%", isOn: Binding(
                     get: { profile.notificationSettings.threshold75Enabled },
                     set: { val in

@@ -16,6 +16,7 @@
 		176A134FDFA37327EF449494 /* CredentialsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA5103F0D30DAE96F2F67580 /* CredentialsView.swift */; };
 		1AF144F01E4606ECDD768AE0 /* UsageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BBDD50C644C5FC6D62677A1 /* UsageView.swift */; };
 		1EF570A2111954686106E54A /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E665B9F01EC06CAB4C07CF3 /* AppError.swift */; };
+		24DE77CA07B9F6949437638A /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE396E9E6AC4160824B1855 /* NotificationService.swift */; };
 		3339D720975751369E8D1B40 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828EB3BBF5DEE8128C864E07 /* Constants.swift */; };
 		3DD8649CD8608BC6F8E46F0D /* ClaudeUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDE3425222C10BFB80429986 /* ClaudeUsage.swift */; };
 		433FE9C63E8E9005048823B7 /* SessionKeyValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B8DDE8E6185ECA224BE87 /* SessionKeyValidator.swift */; };
@@ -79,6 +80,7 @@
 		1C5A2E4FA30DB35523888FA4 /* ClaudeUsageWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeUsageWidget.swift; sourceTree = "<group>"; };
 		278F4DE0F18B47DA93065743 /* ClaudeUsageWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageWidget.entitlements; sourceTree = "<group>"; };
 		27C0050938F5EE7F73912549 /* APIUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUsage.swift; sourceTree = "<group>"; };
+		2FE396E9E6AC4160824B1855 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		356DFE66893D8D2BCB6D8986 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		40CE8535FE8FBD52CE59BE20 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		5BF5C85A6C2D0509A9A4A30A /* ClaudeUsageWidget.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ClaudeUsageWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +124,7 @@
 				A8BD0BA11D0B773D163F66C3 /* ClaudeAPIService.swift */,
 				A7600B5606F3A1CE94532409 /* KeychainService.swift */,
 				0FDA3D18573F44C3F3CF53C4 /* NetworkMonitor.swift */,
+				2FE396E9E6AC4160824B1855 /* NotificationService.swift */,
 				85B1BEF47377F2A01F4A8D3C /* ProfileManager.swift */,
 			);
 			path = Services;
@@ -344,6 +347,7 @@
 				90998E189A901F20C09D26BD /* Date+Extensions.swift in Sources */,
 				F5DD44F7BB56D0D1CABEBF91 /* KeychainService.swift in Sources */,
 				F8FFDDD317C650A126BD1700 /* NetworkMonitor.swift in Sources */,
+				24DE77CA07B9F6949437638A /* NotificationService.swift in Sources */,
 				B35CE7BED0E9C4CE23F7F821 /* NotificationSettings.swift in Sources */,
 				4E4250705CCDEBA7D90A42B6 /* Profile.swift in Sources */,
 				51C23E6EB7F2BB1D7BCA1504 /* ProfileDetailView.swift in Sources */,
