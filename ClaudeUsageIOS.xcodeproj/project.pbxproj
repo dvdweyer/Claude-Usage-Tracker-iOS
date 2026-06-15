@@ -39,6 +39,7 @@
 		B8727276999713D31F2A770C /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB2C0E65A1E0A45AE6FF4010 /* URLBuilder.swift */; };
 		BC2BCE5B7A95FF9029A4AA99 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 9D36297ACD999CD9972672F0 /* PrivacyInfo.xcprivacy */; };
 		E5034AE11E97CCC1B68DDE3F /* ClaudeUsageWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A2E4FA30DB35523888FA4 /* ClaudeUsageWidget.swift */; };
+		E873DEFAE414DBC5D3552DC2 /* WidgetNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD71F5DA15A1A786EFB9A7BD /* WidgetNetworkService.swift */; };
 		F5DD44F7BB56D0D1CABEBF91 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7600B5606F3A1CE94532409 /* KeychainService.swift */; };
 		F8FFDDD317C650A126BD1700 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDA3D18573F44C3F3CF53C4 /* NetworkMonitor.swift */; };
 /* End PBXBuildFile section */
@@ -97,6 +98,7 @@
 		C80C4EB6DC9D10D0417E5190 /* NotificationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettings.swift; sourceTree = "<group>"; };
 		C8D2BC6BE1E7D71F1390E441 /* UsageGaugeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsageGaugeView.swift; sourceTree = "<group>"; };
 		CA5103F0D30DAE96F2F67580 /* CredentialsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialsView.swift; sourceTree = "<group>"; };
+		CD71F5DA15A1A786EFB9A7BD /* WidgetNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetNetworkService.swift; sourceTree = "<group>"; };
 		D10B8DDE8E6185ECA224BE87 /* SessionKeyValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionKeyValidator.swift; sourceTree = "<group>"; };
 		DBC9D7090E4AFB96DD092802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EA83BFE20CE7EDA50DDAC60A /* ClaudeUsageIOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ClaudeUsageIOS.entitlements; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				1C5A2E4FA30DB35523888FA4 /* ClaudeUsageWidget.swift */,
 				B57F42D3BF90F6F5873471A7 /* ClaudeUsageWidgetBundle.swift */,
 				0095182204CB7462975AEBA3 /* WidgetEntry.swift */,
+				CD71F5DA15A1A786EFB9A7BD /* WidgetNetworkService.swift */,
 			);
 			path = ClaudeUsageWidget;
 			sourceTree = "<group>";
@@ -365,6 +368,7 @@
 				71AB9159AE747BA83905DCEE /* Constants.swift in Sources */,
 				898DAB23C5993B899E76E036 /* Date+Extensions.swift in Sources */,
 				AB56CC3FE7FFA889736C058A /* WidgetEntry.swift in Sources */,
+				E873DEFAE414DBC5D3552DC2 /* WidgetNetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,7 @@ enum Constants {
 
     enum RefreshIntervals {
         static let defaultRefresh: TimeInterval = 30
-        static let widgetRefresh: TimeInterval = 60
+        static let widgetRefresh: TimeInterval = 900
     }
 
     enum NotificationThresholds {

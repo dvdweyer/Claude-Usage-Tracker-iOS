@@ -15,9 +15,15 @@ struct ClaudeUsageProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<ClaudeUsageEntry>) -> Void) {
-        let entry = currentEntry()
-        let refreshDate = Date().addingTimeInterval(Constants.RefreshIntervals.widgetRefresh)
-        completion(Timeline(entries: [entry], policy: .after(refreshDate)))
+        Task {
+            var entry = currentEntry()
+            if let key = store.readSessionKey(), let orgId = store.readOrgId(),
+               let fresh = await WidgetNetworkService.fetchUsage(sessionKey: key, orgId: orgId) {
+                entry = .from(usage: fresh, profileName: store.readProfileName())
+            }
+            let next = Date().addingTimeInterval(Constants.RefreshIntervals.widgetRefresh)
+            completion(Timeline(entries: [entry], policy: .after(next)))
+        }
     }
 
     private func currentEntry() -> ClaudeUsageEntry {
@@ -40,6 +46,14 @@ private struct WidgetDataStore {
 
     func readProfileName() -> String {
         defaults?.string(forKey: profileNameKey) ?? "Claude"
+    }
+
+    func readSessionKey() -> String? {
+        defaults?.string(forKey: "widget.sessionKey")
+    }
+
+    func readOrgId() -> String? {
+        defaults?.string(forKey: "widget.orgId")
     }
 }
 

@@ -55,14 +55,14 @@ final class ClaudeAPIService {
         if let overageData = await overageTask,
            let overage = try? JSONDecoder().decode(OverageSpendLimitResponse.self, from: overageData),
            overage.isEnabled == true {
-            usage.costUsed = overage.usedCredits
-            usage.costLimit = overage.monthlyCreditLimit
+            usage.costUsed = overage.usedCredits.map { $0 / 100.0 }
+            usage.costLimit = overage.monthlyCreditLimit.map { $0 / 100.0 }
             usage.costCurrency = overage.currency
         }
 
         if let creditData = await creditTask,
            let grant = try? JSONDecoder().decode(OverageCreditGrantResponse.self, from: creditData) {
-            usage.overageBalance = grant.remainingBalance
+            usage.overageBalance = grant.remainingBalance.map { $0 / 100.0 }
             usage.overageBalanceCurrency = grant.currency
         }
 

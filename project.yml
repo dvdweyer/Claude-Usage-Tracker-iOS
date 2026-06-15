@@ -53,7 +53,7 @@ targets:
       path: ClaudeUsageIOS/Resources/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "26"
+        CFBundleVersion: "27"
         CFBundleShortVersionString: "1.0"
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
@@ -98,7 +98,7 @@ targets:
       path: ClaudeUsageWidget/Info.plist
       properties:
         CFBundleDisplayName: "Claude Usage"
-        CFBundleVersion: "26"
+        CFBundleVersion: "27"
         CFBundleShortVersionString: "1.0"
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension

@@ -51,6 +51,9 @@ final class AppState: ObservableObject {
             syncFromManager()
             lastRefreshed = Date()
             AppGroupStore.shared.writeUsage(result.usage, profileName: updatedProfile.name)
+            if let sessionKey = updatedProfile.claudeSessionKey {
+                AppGroupStore.shared.writeCredentials(sessionKey: sessionKey, orgId: result.orgId)
+            }
         } catch let error as AppError {
             lastError = error
         } catch {

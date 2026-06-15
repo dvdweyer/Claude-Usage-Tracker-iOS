@@ -9,6 +9,8 @@ final class AppGroupStore {
     private let usageKey = "widget.claudeUsage"
     private let profileNameKey = "widget.profileName"
     private let lastUpdateKey = "widget.lastUpdate"
+    private let sessionKeyKey = "widget.sessionKey"
+    private let orgIdKey = "widget.orgId"
 
     private init() {
         defaults = UserDefaults(suiteName: Constants.appGroupIdentifier)
@@ -36,5 +38,18 @@ final class AppGroupStore {
 
     func readLastUpdate() -> Date? {
         defaults?.object(forKey: lastUpdateKey) as? Date
+    }
+
+    func writeCredentials(sessionKey: String, orgId: String) {
+        defaults?.set(sessionKey, forKey: sessionKeyKey)
+        defaults?.set(orgId, forKey: orgIdKey)
+    }
+
+    func readSessionKey() -> String? {
+        defaults?.string(forKey: sessionKeyKey)
+    }
+
+    func readOrgId() -> String? {
+        defaults?.string(forKey: orgIdKey)
     }
 }
