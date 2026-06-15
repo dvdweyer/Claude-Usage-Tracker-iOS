@@ -64,6 +64,12 @@ Widget Provider.getTimeline() (every ~15 min):
        → SmallWidgetView / MediumWidgetView
 ```
 
+## TestFlight
+
+Beta build available at: https://testflight.apple.com/join/YGEStNZf
+
+To ship a new build: bump `CFBundleVersion` in both targets in `project.yml`, run `xcodegen generate`, archive (`xcodebuild archive -scheme ClaudeUsageIOS -destination "generic/platform=iOS" -archivePath build/ClaudeUsage.xcarchive`), export (`xcodebuild -exportArchive -archivePath build/ClaudeUsage.xcarchive -exportOptionsPlist build/ExportOptions.plist -exportPath build/export`), then upload via Transporter or Xcode Organizer. Tag the commit `v0.0.{build}`.
+
 ## Key Identifiers
 
 | | Value |
