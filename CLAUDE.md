@@ -22,10 +22,10 @@ Open in Xcode and run via Xcode UI, or via CLI:
 
 ```bash
 # Build for simulator
-xcodebuild -scheme ClaudeUsageIOS -destination 'platform=iOS Simulator,name=iPhone 16' build
+xcodebuild -scheme ClaudeUsageIOS -destination 'platform=iOS Simulator,name=iPhone 17' build
 
 # Run tests (none exist yet)
-xcodebuild -scheme ClaudeUsageIOS -destination 'platform=iOS Simulator,name=iPhone 16' test
+xcodebuild -scheme ClaudeUsageIOS -destination 'platform=iOS Simulator,name=iPhone 17' test
 ```
 
 There are no Swift Package Manager dependencies, CocoaPods, or Fastlane configs. Xcode 16+, iOS 17.0 deployment target, Swift 5.9.
@@ -36,26 +36,32 @@ There are no Swift Package Manager dependencies, CocoaPods, or Fastlane configs.
 
 - `Shared/` — compiled into **both** the main app and the widget extension. Contains the core data model (`ClaudeUsage`), `Constants`, and date utilities. Any code shared between targets lives here.
 - `ClaudeUsageIOS/` — main app target only.
-- `ClaudeUsageWidget/` — widget extension target only. Reads data exclusively from App Group UserDefaults — it never makes network calls directly.
+- `ClaudeUsageWidget/` — widget extension target only. Reads cached usage from App Group UserDefaults and also makes its own network calls in `getTimeline` via `WidgetNetworkService`.
 
 **State and data flow in the main app:**
 
 `AppState` (`@MainActor ObservableObject`) is the single source of truth injected at the root via `.environmentObject`. It owns the refresh timer and delegates to:
 - `ProfileManager.shared` — profile CRUD, persisted to `UserDefaults.standard` (not App Group)
 - `ClaudeAPIService.shared` — all network calls via `URLSession`, cookie-auth (`sessionKey=sk-ant-…`)
-- `AppGroupStore.shared` — writes `ClaudeUsage` to App Group UserDefaults after each refresh and calls `WidgetCenter.shared.reloadAllTimelines()`
+- `AppGroupStore.shared` — writes `ClaudeUsage`, the active profile name, the session key, and the org ID to App Group UserDefaults after each refresh, then calls `WidgetCenter.shared.reloadAllTimelines()`
 
-Session keys are stored in the iOS Keychain (`KeychainService`), not in UserDefaults. `Profile` stores the key reference; `ClaudeAPIService` retrieves it via `profile.claudeSessionKey`.
+Session keys are stored in the iOS Keychain (`KeychainService`), not in UserDefaults. `Profile` stores the key reference; `ClaudeAPIService` retrieves it via `profile.claudeSessionKey`. A copy of the active session key and org ID is also written to the App Group after each refresh so the widget extension can make its own network calls.
 
 **Widget data flow:**
 
 ```
 AppState.refresh() → ClaudeAPIService → AppGroupStore.writeUsage()
     → UserDefaults(group.org.afaik.claudeusagetracker.shared)
+        stores: ClaudeUsage, profileName, sessionKey, orgId
     → WidgetCenter.shared.reloadAllTimelines()
 
-Widget Provider.getTimeline() → AppGroupStore.readUsage()
-    → ClaudeUsageEntry → SmallWidgetView / MediumWidgetView
+Widget Provider.getTimeline() (every ~15 min):
+    1. Read cached entry from App Group (fallback)
+    2. If sessionKey + orgId available → WidgetNetworkService.fetchUsage()
+           → GET /organizations/{orgId}/usage
+           → parse into ClaudeUsage
+    3. Deliver fresh or cached ClaudeUsageEntry
+       → SmallWidgetView / MediumWidgetView
 ```
 
 ## Key Identifiers
@@ -72,5 +78,7 @@ To change the bundle ID prefix, update `project.yml` (`options.bundleIdPrefix`),
 ## API Notes
 
 `ClaudeAPIService` calls the **claude.ai web API** (not the Anthropic developer API) using a browser session cookie. Endpoints under `https://claude.ai/api/organizations/{orgId}/usage` return `five_hour`, `seven_day`, `seven_day_opus`, and `seven_day_sonnet` utilization percentages. Overage/credit endpoints are fetched concurrently but failures are silently swallowed (those fields are optional in `ClaudeUsage`).
+
+Monetary fields from the overage endpoints (`used_credits`, `monthly_credit_limit`, `remaining_balance`) are returned by the API in **minor currency units (cents)**. `ClaudeAPIService` divides them by 100 before storing so all `ClaudeUsage` cost fields are in major units (dollars/euros/etc.).
 
 The org ID is resolved automatically on first use by calling `/organizations` and cached in the `Profile`.

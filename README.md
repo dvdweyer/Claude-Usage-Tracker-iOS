@@ -64,7 +64,6 @@ The app has been submitted to Apple TestFlight. It is not yet publicly available
 ### Generate the Xcode Project
 
 ```bash
-cd /Users/donald/Documents/Development/Claude-Usage-Tracker-iOS
 brew install xcodegen   # skip if already installed
 xcodegen generate
 ```
@@ -185,6 +184,7 @@ ClaudeUsageWidget/
   ClaudeUsageWidgetBundle.swift # @main WidgetBundle
   ClaudeUsageWidget.swift       # Provider + Small/Medium widget views
   WidgetEntry.swift             # TimelineEntry
+  WidgetNetworkService.swift    # Fetches fresh usage data in getTimeline
 ```
 
 ### Widget Data Flow
@@ -192,13 +192,14 @@ ClaudeUsageWidget/
 ```
 App refresh → ClaudeAPIService → ClaudeUsage
     ↓
-AppGroupStore.writeUsage()
-    → UserDefaults(group.com.claudeusagetracker.shared)
+AppGroupStore.writeUsage() + writeCredentials()
+    → UserDefaults(group.org.afaik.claudeusagetracker.shared)
+        stores: ClaudeUsage, profileName, sessionKey, orgId
     → WidgetCenter.shared.reloadAllTimelines()
 
-Widget Provider.getTimeline()
-    → WidgetDataStore.readUsage()
-    → UserDefaults(group.com.claudeusagetracker.shared)
+Widget Provider.getTimeline() (every ~15 min)
+    → try WidgetNetworkService.fetchUsage(sessionKey, orgId)  ← fresh network call
+    → fall back to WidgetDataStore.readUsage() if offline
     → ClaudeUsageEntry → rendered by SmallWidgetView / MediumWidgetView
 ```
 
