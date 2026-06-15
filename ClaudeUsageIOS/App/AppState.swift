@@ -15,8 +15,9 @@ final class AppState: ObservableObject {
     init() {
         syncFromManager()
         if activeProfile?.hasUsageCredentials == true {
+            isLoading = true  // show spinner immediately, before the Task gets CPU
             scheduleRefresh()
-            Task { await refresh() }
+            Task { await performRefresh() }
         }
         NetworkMonitor.shared.startMonitoring()
         NetworkMonitor.shared.onNetworkAvailable = { [weak self] in
@@ -31,9 +32,15 @@ final class AppState: ObservableObject {
     // MARK: - Usage Refresh
 
     func refresh() async {
-        guard let profile = activeProfile, profile.hasUsageCredentials else { return }
         guard !isLoading else { return }
+        await performRefresh()
+    }
 
+    private func performRefresh() async {
+        guard let profile = activeProfile, profile.hasUsageCredentials else {
+            isLoading = false
+            return
+        }
         isLoading = true
         lastError = nil
         defer { isLoading = false }
