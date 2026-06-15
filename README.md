@@ -1,24 +1,20 @@
 # Claude Usage Tracker — iOS Companion App
 
-> **⚠️ Proof of Concept — Not production-ready**
-> This app was built as a quick feasibility exercise. The UI has not been properly designed and is visibly rough around the edges. Treat it as a starting point, not a finished product.
+An iOS version of [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker), the macOS menu bar app for monitoring your Claude AI usage. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
 
-An iOS companion to [Claude Usage Tracker](https://github.com/hamed-elfayome/Claude-Usage-Tracker), the macOS menu bar app for monitoring your Claude AI usage. Shows session and weekly usage on your iPhone, stores credentials in the iOS Keychain, and provides a WidgetKit home screen widget.
-
-The app is submitted to TestFlight and awaiting its first review. Feedback to [claude-usage-tracker@afaik.org](mailto:claude-usage-tracker@afaik.org) is welcome, but I'm not providing support or promising fixes. If you want to contribute, please get in touch.
+I'm not providing support or promising fixes. If you want to contribute, please get in touch.
 
 ## Beta Testing (TestFlight)
 
-The app has been submitted to Apple TestFlight. It is not yet publicly available, but you can already register as a tester — your spot is saved and you'll be notified as soon as the build is approved.
+The beta is live. Install TestFlight, open the link below on your device, and tap **Start Testing**.
 
 **[Join the TestFlight beta](https://testflight.apple.com/join/YGEStNZf)**
 
 ### How TestFlight works
 
 1. **Install TestFlight** — Download the free [TestFlight app](https://apps.apple.com/app/testflight/id899247664) from the App Store on your iPhone or iPad.
-2. **Join the beta** — Open the link above on your device and tap **Accept** to register.
-3. **Wait for availability** — Once Apple approves the build, TestFlight notifies you and the install button becomes active.
-4. **Install & update** — TestFlight handles installation and keeps the app updated automatically throughout the beta.
+2. **Join the beta** — Open the link above on your device and tap **Start Testing**.
+3. **Install & update** — TestFlight handles installation and keeps the app updated automatically throughout the beta.
 
 ---
 
@@ -34,14 +30,14 @@ The app has been submitted to Apple TestFlight. It is not yet publicly available
 ## Features
 
 - **Usage Dashboard** — Session (5-hour) and Weekly (7-day) usage gauges with colour-coded status
-- **Model Breakdown** — Opus and Sonnet weekly usage bars
+- **Model Breakdown** — Opus and Sonnet weekly usage bars (only shown when the API returns per-model data; not available on all plan types)
 - **Overage Tracking** — Monthly cost limit and credit grant balance (when configured)
 - **Multi-Profile** — Create and switch between multiple Claude accounts
 - **Keychain Storage** — Session keys stored in iOS Keychain (`kSecAttrAccessibleWhenUnlockedThisDeviceOnly`)
 - **Manual Session Key Entry** — Paste your `sk-ant-…` session key; org ID is fetched automatically
 - **WidgetKit Widget** — Small (2×2) and Medium (4×2) home screen widgets that refresh every 15 minutes
-- **Auto-refresh** — Configurable interval (15 s – 15 min)
-- **Notifications** — Opt-in alerts at 75%, 90%, and 95% thresholds
+- **Auto-refresh** — Configurable interval (15 s – 15 min); the widget always updates in 15 minutes (Apple mandated) and at known session reset times
+- **Notifications** — Opt-in threshold alerts at 75%, 90%, and 95%, plus optional alerts when your session and weekly windows reset
 
 ## What was NOT ported
 
@@ -59,7 +55,16 @@ The app has been submitted to Apple TestFlight. It is not yet publicly available
 - An Apple Developer account (free tier works for device testing)
 - [xcodegen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
 
+### Clone the project from GitHub
+
+```bash
+git clone https://github.com/dvdweyer/Claude-Usage-Tracker-iOS.git
+open Claude-Usage-Tracker-iOS/ClaudeUsageIOS.xcodeproj
+```
+
 ### Generate the Xcode Project
+
+Alternatively:
 
 ```bash
 brew install xcodegen   # skip if already installed
@@ -84,10 +89,11 @@ If you prefer to set up manually:
 
 2. **Add a Widget Extension target**  
    File → New → Target → Widget Extension  
+   
    - Product Name: `ClaudeUsageWidget`  
    - Bundle ID: `org.afaik.claudeusagetracker.ios.widget`  
    - Uncheck "Include Configuration App Intent"
-
+   
 3. **Add source files to each target**
 
    | Files | Target |
@@ -162,6 +168,7 @@ ClaudeUsageIOS/
     KeychainService.swift       # iOS Keychain wrapper (Security.framework)
     ProfileManager.swift        # Profile CRUD (UserDefaults persistence)
     NetworkMonitor.swift        # NWPathMonitor — auto-refresh on reconnect
+    NotificationService.swift   # Schedules threshold and reset local notifications
   Utilities/
     AppError.swift              # Typed error with codes and recovery hints
     SessionKeyValidator.swift   # Validates sk-ant-… format
@@ -195,7 +202,7 @@ AppGroupStore.writeUsage() + writeCredentials()
         stores: ClaudeUsage, profileName, sessionKey, orgId
     → WidgetCenter.shared.reloadAllTimelines()
 
-Widget Provider.getTimeline() (every ~15 min)
+Widget Provider.getTimeline() (every ~15 min, or 1 min after a session/weekly reset)
     → try WidgetNetworkService.fetchUsage(sessionKey, orgId)  ← fresh network call
     → fall back to WidgetDataStore.readUsage() if offline
     → ClaudeUsageEntry → rendered by SmallWidgetView / MediumWidgetView
@@ -211,7 +218,7 @@ Widget Provider.getTimeline() (every ~15 min)
 | Widget | `org.afaik.claudeusagetracker.ios.widget` |
 | App Group | `group.org.afaik.claudeusagetracker.shared` |
 
-To use a different bundle ID prefix, replace `org.afaik.claudeusagetracker` in `project.pbxproj`, both `.entitlements` files, `Constants.swift`, and the `WidgetDataStore` suite name in `ClaudeUsageWidget.swift`.
+To use a different bundle ID prefix, update `project.yml` (`options.bundleIdPrefix`), both `.entitlements` files, and `Constants.appGroupIdentifier` in `Constants.swift`, then run `xcodegen generate`.
 
 ---
 
