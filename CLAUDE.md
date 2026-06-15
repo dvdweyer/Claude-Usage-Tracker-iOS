@@ -79,6 +79,8 @@ To change the bundle ID prefix, update `project.yml` (`options.bundleIdPrefix`),
 
 `ClaudeAPIService` calls the **claude.ai web API** (not the Anthropic developer API) using a browser session cookie. Endpoints under `https://claude.ai/api/organizations/{orgId}/usage` return `five_hour`, `seven_day`, `seven_day_opus`, and `seven_day_sonnet` utilization percentages. Overage/credit endpoints are fetched concurrently but failures are silently swallowed (those fields are optional in `ClaudeUsage`).
 
+**Widget refresh budget:** `Constants.RefreshIntervals.widgetRefresh` is set to 900 s (15 minutes). WidgetKit allows roughly 40–70 timeline refreshes per day per widget; the previous 60 s interval exhausted that budget in under an hour. At 15 min the widget requests ~96 refreshes/day, near the ceiling but keeps data fresh. 20 min (1 200 s) is a safer alternative at ~72/day if budget exhaustion becomes an issue.
+
 Monetary fields from the overage endpoints (`used_credits`, `monthly_credit_limit`, `remaining_balance`) are returned by the API in **minor currency units (cents)**. `ClaudeAPIService` divides them by 100 before storing so all `ClaudeUsage` cost fields are in major units (dollars/euros/etc.).
 
 The org ID is resolved automatically on first use by calling `/organizations` and cached in the `Profile`.
