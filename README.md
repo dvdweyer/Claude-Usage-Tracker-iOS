@@ -7,7 +7,6 @@ An iOS companion to [Claude Usage Tracker](https://github.com/hamed-elfayome/Cla
 
 The app is submitted to TestFlight and awaiting its first review. Feedback to [claude-usage-tracker@afaik.org](mailto:claude-usage-tracker@afaik.org) is welcome, but I'm not providing support or promising fixes. If you want to contribute, please get in touch.
 
-<!--
 ## Beta Testing (TestFlight)
 
 The app has been submitted to Apple TestFlight. It is not yet publicly available, but you can already register as a tester — your spot is saved and you'll be notified as soon as the build is approved.
@@ -20,7 +19,6 @@ The app has been submitted to Apple TestFlight. It is not yet publicly available
 2. **Join the beta** — Open the link above on your device and tap **Accept** to register.
 3. **Wait for availability** — Once Apple approves the build, TestFlight notifies you and the install button becomes active.
 4. **Install & update** — TestFlight handles installation and keeps the app updated automatically throughout the beta.
--->
 
 ---
 
