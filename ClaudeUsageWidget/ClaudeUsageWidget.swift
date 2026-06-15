@@ -21,7 +21,13 @@ struct ClaudeUsageProvider: TimelineProvider {
                let fresh = await WidgetNetworkService.fetchUsage(sessionKey: key, orgId: orgId) {
                 entry = .from(usage: fresh, profileName: store.readProfileName())
             }
-            let next = Date().addingTimeInterval(Constants.RefreshIntervals.widgetRefresh)
+            let now = Date()
+            var next = now.addingTimeInterval(Constants.RefreshIntervals.widgetRefresh)
+            // Wake up 1 min after each reset so the widget fetches fresh post-reset data.
+            for resetTime in [entry.sessionResetTime, entry.weeklyResetTime] {
+                let candidate = resetTime.addingTimeInterval(60)
+                if candidate > now { next = min(next, candidate) }
+            }
             completion(Timeline(entries: [entry], policy: .after(next)))
         }
     }
